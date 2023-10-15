@@ -14,12 +14,21 @@ import javax.swing.JTextField;
 
 import client.Client;
 
+/**
+ * Die `ClientUI`-Klasse stellt die Benutzeroberfläche für den Client dar, um Solaranlageninformationen
+ * an den Server zu senden und die Ergebnisse anzuzeigen.
+ */
 public class ClientUI extends JFrame {
 
     private static int width = 1000, height = 800;
     Client client;
     JTextArea textArea;
 
+     /**
+     * Konstruktor für die `ClientUI`-Klasse. Erstellt die Benutzeroberfläche und initialisiert den Client.
+     *
+     * @param client Der Client, der für die Kommunikation mit dem Server verwendet wird.
+     */
     public ClientUI(Client client) {
         this.client = client;
 
@@ -79,7 +88,12 @@ public class ClientUI extends JFrame {
         add(send);
         setVisible(true);
     }
-    
+
+    /**
+     * Setzt das Ergebnis der Server-Anfrage in das Textfeld der Benutzeroberfläche.
+     *
+     * @param s Die Zeichenkette, die das Ergebnis der Server-Anfrage enthält.
+     */
     public void setResult(String s) {
         textArea.setText(s);
     }
