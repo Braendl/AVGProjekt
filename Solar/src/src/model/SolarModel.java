@@ -135,5 +135,4 @@ public class SolarModel implements Serializable {
         this.houseNumber = (String) ois.readObject();
         this.powerSolar = (Double) ois.readObject();
     }
-
 }
