@@ -13,14 +13,31 @@ import com.rabbitmq.client.DeliverCallback;
 
 import model.SolarModel;
 
+/**
+ * Die `Server`-Klasse stellt einen RabbitMQ-Server dar, der auf Client-Anfragen wartet und
+ * Berechnungen basierend auf den empfangenen Anfragen durchführt.
+ */
 public class Server {
     private static final String RPC_QUEUE_NAME = "rpc_queue";
 
+    /**
+     * Führt eine Testberechnung für das gegebene SolarModel durch.
+     *
+     * @param solarmodel Das SolarModel-Objekt, für das die Berechnung durchgeführt werden soll.
+     * @return Das Ergebnis der Berechnung als Zeichenkette.
+     */
     private static String calculate(SolarModel solarmodel) {
 
         return "Test Berechnung";
     }
 
+    /**
+     * Der Einstiegspunkt des Server-Programms. Der Server wartet auf eingehende Client-Anfragen und führt
+     * Berechnungen basierend auf den empfangenen Anfragen durch.
+     *
+     * @param argv Die Befehlszeilenargumente, die bei der Programmausführung übergeben werden.
+     * @throws Exception wenn ein Fehler während des Serverbetriebs auftritt.
+     */
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
