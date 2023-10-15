@@ -58,25 +58,45 @@ public class Client implements AutoCloseable {
 
     }
 
-    public void setCity(String city) {
-        solarModel.setCity(city);
-    }
+/**
+ * Legt die Stadt für das SolarModel fest.
+ * @param city Die Stadt, die für das SolarModel festgelegt werden soll.
+ */
+public void setCity(String city) {
+    solarModel.setCity(city);
+}
 
-    public void setCountry(String country) {
-        solarModel.setCountry(country);
-    }
+/**
+ * Legt das Land für das SolarModel fest.
+ * @param country Das Land, das für das SolarModel festgelegt werden soll.
+ */
+public void setCountry(String country) {
+    solarModel.setCountry(country);
+}
 
-    public void setHouseNumber(String houseNumber) {
-        solarModel.setHouseNumber(houseNumber);
-    }
+/**
+ * Legt die Hausnummer für das SolarModel fest.
+ * @param houseNumber Die Hausnummer, die für das SolarModel festgelegt werden soll.
+ */
+public void setHouseNumber(String houseNumber) {
+    solarModel.setHouseNumber(houseNumber);
+}
 
-    public void setPowerSolar(String powerSolar) {
-        solarModel.setPowerSolar(Double.parseDouble(powerSolar));
-    }
+/**
+ * Legt die Leistung der Solaranlage für das SolarModel fest.
+ * @param powerSolar Die Leistung der Solaranlage, die für das SolarModel festgelegt werden soll.
+ */
+public void setPowerSolar(String powerSolar) {
+    solarModel.setPowerSolar(Double.parseDouble(powerSolar));
+}
 
-    public void setStreet(String street) {
-        solarModel.setStreet(street);
-    }
+/**
+ * Legt die Straße für das SolarModel fest.
+ * @param street Die Straße, die für das SolarModel festgelegt werden soll.
+ */
+public void setStreet(String street) {
+    solarModel.setStreet(street);
+}
 
     /**
      * Überprüft, ob alle erforderlichen SolarModel-Daten gesetzt sind.
