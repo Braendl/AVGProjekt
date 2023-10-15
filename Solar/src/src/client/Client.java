@@ -15,11 +15,21 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import model.SolarModel;
 
+/**
+ * Die `Client`-Klasse stellt eine Verbindung zu einem RabbitMQ-Server her und ermöglicht es,
+ * Anfragen an den Server zu senden und Antworten zu empfangen.
+ */
 public class Client implements AutoCloseable {
     private Connection connection;
     private Channel channel;
     private String requestQueueName = "rpc_queue";
-
+    
+    /**
+     * Konstruktor für die `Client`-Klasse. Stellt eine Verbindung zum RabbitMQ-Server her.
+     *
+     * @throws IOException wenn ein Verbindungsfehler auftritt.
+     * @throws TimeoutException wenn eine Zeitüberschreitung auftritt.
+     */
     public Client() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
@@ -28,6 +38,11 @@ public class Client implements AutoCloseable {
         channel = connection.createChannel();
     }
 
+    /**
+     * Die `main`-Methode ist der Einstiegspunkt des Client-Programms.
+     *
+     * @param argv Die Befehlszeilenargumente, die bei der Ausführung des Programms übergeben werden.
+     */
     public static void main(String[] argv) {
         try (Client client = new Client()) {
            
@@ -46,6 +61,15 @@ public class Client implements AutoCloseable {
         }
     }
 
+    /**
+     * Sendet eine Anfrage an den Server und empfängt die Antwort.
+     *
+     * @param message Das SolarModel-Objekt, das die Anfrage enthält.
+     * @return Die Antwort des Servers als Zeichenkette.
+     * @throws IOException wenn ein Fehler beim Senden der Anfrage auftritt.
+     * @throws InterruptedException wenn der Thread während des Wartens auf eine Antwort unterbrochen wird.
+     * @throws ExecutionException wenn ein Fehler bei der Verarbeitung der Antwort auftritt.
+     */
     public String call(SolarModel message) throws IOException, InterruptedException, ExecutionException {
         byte[] sendData;
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
@@ -76,6 +100,11 @@ public class Client implements AutoCloseable {
         return result;
     }
 
+    /**
+     * Schließt die Verbindung zum RabbitMQ-Server.
+     *
+     * @throws IOException wenn ein Fehler beim Schließen der Verbindung auftritt.
+     */
     public void close() throws IOException {
         connection.close();
     }
