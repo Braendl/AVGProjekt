@@ -25,6 +25,9 @@ import Logging.Logger;
 import model.Coordinate;
 import model.SolarModel;
 
+/**
+ * Diese Klasse repräsentiert den Server, der Solarproduktionsanfragen von Clients verarbeitet.
+ */
 public class Server {
     private static final String RPC_QUEUE_NAME = "rpc_queue";
 
@@ -35,6 +38,11 @@ public class Server {
     
     private static final String API_QUALITY = "&requiredQuality=LOW";
 
+    /**
+     * Diese Methode berechnet die Solarproduktion für ein gegebenes SolarModel.
+     * @param solarmodel Das SolarModel, für das die Produktion berechnet werden soll.
+     * @return Die berechnete Solarproduktion als Zeichenfolge.
+     */
     private static String calculate(SolarModel solarmodel) {
     
         Coordinate coordinates = calculateCoordinate(solarmodel);
@@ -55,6 +63,11 @@ public class Server {
         return response; 
     }
 
+    /**
+     * Diese Methode berechnet geografische Koordinaten basierend auf einem SolarModel.
+     * @param solarmodel Das SolarModel, für das die Koordinaten berechnet werden sollen.
+     * @return Die berechneten geografischen Koordinaten.
+     */
     private static Coordinate calculateCoordinate(SolarModel solarmodel) {
         Coordinate c = new Coordinate();
         String response = "";
@@ -87,6 +100,11 @@ public class Server {
 
     }
 
+    /**
+     * Diese Methode ist der Einstiegspunkt des Server-Programms.
+     * @param argv Die Befehlszeilenargumente.
+     * @throws Exception Wenn ein Fehler auftritt.
+     */
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
