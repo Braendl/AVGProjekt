@@ -23,7 +23,7 @@ public class ClientUI extends JFrame {
     public ClientUI(Client client) {
         this.client = client;
 
-        setTitle("Nastia Abgabe");
+        setTitle("AvG");
         setSize(width, height);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
