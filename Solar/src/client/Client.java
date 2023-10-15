@@ -16,12 +16,21 @@ import com.rabbitmq.client.ConnectionFactory;
 import View.ClientUI;
 import model.SolarModel;
 
+/**
+ * Diese Klasse repräsentiert einen Client für die Solarproduktionsanfrage.
+ * Der Client kann Anfragen an einen Server über RabbitMQ senden und auf Antworten warten.
+ */
 public class Client implements AutoCloseable {
     private Connection connection;
     private Channel channel;
     private String requestQueueName = "rpc_queue";
     private SolarModel solarModel;
 
+    /**
+     * Erstellt eine neue Instanz des Clients und stellt die Verbindung zu RabbitMQ her.
+     * @throws IOException         Wenn ein Fehler bei der Verbindungsherstellung auftritt.
+     * @throws TimeoutException    Wenn ein Timeout bei der Verbindungsherstellung auftritt.
+     */
     public Client() throws IOException, TimeoutException {
 
         ConnectionFactory factory = new ConnectionFactory();
@@ -35,6 +44,10 @@ public class Client implements AutoCloseable {
 
     }
 
+    /**
+     * Hauptmethode zum Starten des Clients.
+     * @param argv Die Befehlszeilenargumente.
+     */
     public static void main(String[] argv) {
 
         try {
@@ -65,12 +78,24 @@ public class Client implements AutoCloseable {
         solarModel.setStreet(street);
     }
 
+    /**
+     * Überprüft, ob alle erforderlichen SolarModel-Daten gesetzt sind.
+     * @return true, wenn alle Daten gesetzt sind, andernfalls false.
+     */
     public boolean isSolarSet() {
         return !solarModel.getCity().isBlank() && !solarModel.getCountry().isBlank()
                 && !solarModel.getHouseNumber().isBlank() && !solarModel.getStreet().isBlank()
                 && solarModel.getPowerSolar() != 0;
     }
 
+    /**
+     * Sendet eine Solarproduktionsanfrage an den Server und wartet auf die Antwort.
+     * @return Die Antwort des Servers.
+     * @throws IOException         Wenn ein Fehler beim Senden der Anfrage auftritt oder nicht alle Daten gesetzt sind.
+     * @throws InterruptedException Wenn die Warteoperation unterbrochen wird.
+     * @throws ExecutionException  Wenn ein Fehler bei der Ausführung auftritt.
+     * @throws TimeoutException   Wenn ein Timeout bei der Anfrage auftritt.
+     */
     public String call() throws IOException, InterruptedException, ExecutionException, TimeoutException {
         if (!isSolarSet())
             throw new IOException();
@@ -104,6 +129,10 @@ public class Client implements AutoCloseable {
         return result;
     }
 
+    /**
+     * Schließt die Verbindung zum RabbitMQ-Server.
+     * @throws IOException Wenn ein Fehler beim Schließen der Verbindung auftritt.
+     */
     public void close() throws IOException {
         connection.close();
     }
